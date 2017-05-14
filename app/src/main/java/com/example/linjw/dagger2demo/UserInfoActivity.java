@@ -1,20 +1,26 @@
 package com.example.linjw.dagger2demo;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.*;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.linjw.dagger2demo.dagger2.Component;
-import com.example.linjw.dagger2demo.dagger2.DaggerComponent;
+import com.example.linjw.dagger2demo.dagger2.AppComponent;
+import com.example.linjw.dagger2demo.dagger2.DaggerAppComponent;
+import com.example.linjw.dagger2demo.dagger2.DaggerUserInfoComponent;
+import com.example.linjw.dagger2demo.dagger2.UserInfoComponent;
 import com.example.linjw.dagger2demo.dagger2.UserInfoPresenterModule;
 import com.example.linjw.dagger2demo.presenter.UserInfoPresenter;
 import com.example.linjw.dagger2demo.view.UserInfoView;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements UserInfoView {
+/**
+ * Created by linjw on 17-5-14.
+ */
+
+public class UserInfoActivity extends Activity implements UserInfoView{
     private ImageView mAvatar;
     private TextView mName;
 
@@ -24,18 +30,24 @@ public class MainActivity extends AppCompatActivity implements UserInfoView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.userinfo_activity);
 
         mAvatar = (ImageView) findViewById(R.id.avatar);
         mName = (TextView) findViewById(R.id.name);
 
-        Component component = DaggerComponent.builder()
+        UserInfoComponent component = DaggerUserInfoComponent
+                .builder()
+                .appComponent(getAppComponent())
                 .userInfoPresenterModule(new UserInfoPresenterModule(this))
                 .build();
         component.inject(this);
         component.inject(mPresenter);
 
-        mPresenter.loadUserInfo("bluesky466");
+        mPresenter.loadUserInfo(getIntent().getStringExtra("login"));
+    }
+
+    AppComponent getAppComponent() {
+        return ((AppApplication)getApplication()).getAppComponent();
     }
 
     @Override
@@ -53,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements UserInfoView {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Glide.with(MainActivity.this)
+                Glide.with(UserInfoActivity.this)
                         .load(url)
                         .into(mAvatar);
             }

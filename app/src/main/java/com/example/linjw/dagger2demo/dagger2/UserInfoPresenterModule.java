@@ -19,7 +19,7 @@ public class UserInfoPresenterModule {
     }
 
     @Provides
-    UserInfoPresenter provideUserInfoPresenter() {
-        return new UserInfoPresenter(mView);
+    UserInfoView provideUserInfoView() {
+        return mView;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.linjw.dagger2demo.dagger2;
 
-import com.example.linjw.dagger2demo.UserInfoLoader;
+import com.example.linjw.dagger2demo.model.UserInfoLoader;
 
 import dagger.Module;
 import dagger.Provides;
@@ -10,7 +10,7 @@ import dagger.Provides;
  */
 
 @Module
-public class UserInfoLoaderModule {
+public class AppModule {
     @Provides
     UserInfoLoader provideUserInfoLoader() {
         return new UserInfoLoader();

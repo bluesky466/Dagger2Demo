@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.linjw.dagger2demo.UserInfoLoader;
+import com.example.linjw.dagger2demo.model.UserInfoLoader;
 //import com.example.linjw.dagger2demo.dagger2.DaggerComponent;
 import com.example.linjw.dagger2demo.view.UserInfoView;
 
@@ -17,14 +17,17 @@ import javax.inject.Inject;
 public class UserInfoPresenter {
     public static final String TAG = "UserInfoPresenter";
 
-    private UserInfoView mView;
+    @Inject
+    UserInfoView mView;
 
     @Inject
     UserInfoLoader mUserInfoLoader;
 
-    public UserInfoPresenter(UserInfoView view) {
-        mView = view;
+    @Inject
+    public UserInfoPresenter(){
+
     }
+
 
     public void loadUserInfo(final String login) {
         mUserInfoLoader.loadUserInfo(login, new UserInfoLoader.LoadFinishListener() {
@@ -40,7 +43,7 @@ public class UserInfoPresenter {
 
             @Override
             public void onLoadError(UserInfoLoader loader) {
-
+                mView.setName("can't find user " + login);
             }
         });
     }
