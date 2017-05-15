@@ -36,6 +36,7 @@ public class SearchActivity extends Activity implements SearchView {
                 .searchPresenterModule(new SearchPresenterModule(this))
                 .build();
 
+        // 注意调用顺序,先使mSearchPresenter非空,再往mSearchPresenter注入依赖
         component.inject(this);
         component.inject(mSearchPresenter);
     }
