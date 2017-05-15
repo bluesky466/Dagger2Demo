@@ -1,9 +1,11 @@
 package com.example.linjw.dagger2demo.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.linjw.dagger2demo.FollowerActivity;
 import com.example.linjw.dagger2demo.model.UserInfoLoader;
 //import com.example.linjw.dagger2demo.dagger2.DaggerComponent;
 import com.example.linjw.dagger2demo.view.UserInfoView;
@@ -22,6 +24,9 @@ public class UserInfoPresenter {
 
     @Inject
     UserInfoLoader mUserInfoLoader;
+
+    @Inject
+    Context mContext;
 
     @Inject
     public UserInfoPresenter(){
@@ -50,5 +55,6 @@ public class UserInfoPresenter {
 
     public void gotoFollowersList(Context context) {
         Toast.makeText(context, "gotoFollowersList", Toast.LENGTH_SHORT).show();
+        context.startActivity(new Intent(mContext, FollowerActivity.class));
     }
 }

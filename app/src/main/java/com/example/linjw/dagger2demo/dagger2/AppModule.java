@@ -11,6 +11,8 @@ import dagger.Provides;
 
 @Module
 public class AppModule {
+
+    @AppScope
     @Provides
     UserInfoLoader provideUserInfoLoader() {
         return new UserInfoLoader();

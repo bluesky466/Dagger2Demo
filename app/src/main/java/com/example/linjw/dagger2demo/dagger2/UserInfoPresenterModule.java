@@ -1,5 +1,8 @@
 package com.example.linjw.dagger2demo.dagger2;
 
+import android.content.Context;
+
+import com.example.linjw.dagger2demo.UserInfoActivity;
 import com.example.linjw.dagger2demo.presenter.UserInfoPresenter;
 import com.example.linjw.dagger2demo.view.UserInfoView;
 
@@ -12,14 +15,19 @@ import dagger.Provides;
 
 @Module
 public class UserInfoPresenterModule {
-    private UserInfoView mView;
+    private UserInfoActivity mActivity;
 
-    public UserInfoPresenterModule(UserInfoView view) {
-        mView = view;
+    public UserInfoPresenterModule(UserInfoActivity activity) {
+        mActivity = activity;
     }
 
     @Provides
-    UserInfoView provideUserInfoView() {
-        return mView;
+    UserInfoView provideUserInfoActivity() {
+        return mActivity;
+    }
+
+    @Provides
+    Context provideContext() {
+        return mActivity;
     }
 }

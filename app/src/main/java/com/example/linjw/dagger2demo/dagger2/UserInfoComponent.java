@@ -5,12 +5,12 @@ import com.example.linjw.dagger2demo.presenter.UserInfoPresenter;
 import com.example.linjw.dagger2demo.view.UserInfoView;
 
 import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Created by linjw on 17-5-14.
  */
-
-@Component(dependencies = AppComponent.class, modules = {UserInfoPresenterModule.class, UserInfoPresenterModule.class})
+@Subcomponent(modules = {UserInfoPresenterModule.class})
 public interface UserInfoComponent {
     void inject(UserInfoPresenter presenter);
 

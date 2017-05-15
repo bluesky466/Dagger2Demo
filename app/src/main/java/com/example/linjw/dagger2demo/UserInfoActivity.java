@@ -2,13 +2,16 @@ package com.example.linjw.dagger2demo;
 
 import android.app.*;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.linjw.dagger2demo.dagger2.AppComponent;
-import com.example.linjw.dagger2demo.dagger2.DaggerAppComponent;
-import com.example.linjw.dagger2demo.dagger2.DaggerUserInfoComponent;
+//import com.example.linjw.dagger2demo.dagger2.DaggerAppComponent;
+//import com.example.linjw.dagger2demo.dagger2.DaggerUserInfoComponent;
+//import com.example.linjw.dagger2demo.dagger2.UserInfoComponent;
+//import com.example.linjw.dagger2demo.dagger2.UserInfoPresenterModule;
 import com.example.linjw.dagger2demo.dagger2.UserInfoComponent;
 import com.example.linjw.dagger2demo.dagger2.UserInfoPresenterModule;
 import com.example.linjw.dagger2demo.presenter.UserInfoPresenter;
@@ -35,11 +38,14 @@ public class UserInfoActivity extends Activity implements UserInfoView{
         mAvatar = (ImageView) findViewById(R.id.avatar);
         mName = (TextView) findViewById(R.id.name);
 
-        UserInfoComponent component = DaggerUserInfoComponent
-                .builder()
-                .appComponent(getAppComponent())
-                .userInfoPresenterModule(new UserInfoPresenterModule(this))
-                .build();
+//        UserInfoComponent component = DaggerUserInfoComponent
+//                .builder()
+//                .userInfoPresenterModule(new UserInfoPresenterModule(this))
+//                .build();
+//        component.inject(this);
+//        component.inject(mPresenter);
+
+        UserInfoComponent component = getAppComponent().plus(new UserInfoPresenterModule(this));
         component.inject(this);
         component.inject(mPresenter);
 
@@ -70,5 +76,9 @@ public class UserInfoActivity extends Activity implements UserInfoView{
                         .into(mAvatar);
             }
         });
+    }
+
+    public void onClick(View view) {
+        mPresenter.gotoFollowersList(this);
     }
 }

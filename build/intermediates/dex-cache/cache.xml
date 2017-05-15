@@ -12,11 +12,29 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/linjw/.android/build-cache/a055b647cc027afbf024b09104cabc13f8fc0bcf/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="30a4938ea5235ccf532b3e9f04200e68547e36ad">
+        <dex dex="/home/linjw/workspace/Dagger2Demo/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_29a0ece5a32fe9063df3292e76ed9e45c47ac9b3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/linjw/.android/build-cache/985760a84711002d93693273b375bd36d37cc48c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="152de8da301561dcb0946471697a420d8f7a68c5">
+        <dex dex="/home/linjw/workspace/Dagger2Demo/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_35111a4eb249d32c924be67d7368cf38d32ce63e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/linjw/workspace/Dagger2Demo/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="28282ed7ed2eb5009c1e8877132b8ab5b6d43c32">
+        sha1="1395d3494289797a40a664df81ceaa57d68fd0b7">
         <dex dex="/home/linjw/workspace/Dagger2Demo/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_0cc236f29a10345065cae3520d6a2a2b0e87954a/classes.dex" />
     </item>
 

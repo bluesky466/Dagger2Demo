@@ -8,6 +8,7 @@ import dagger.Component;
 /**
  * Created by linjw on 17-5-14.
  */
+
 @Component(modules = {SearchPresenterModule.class})
 public interface SearchComponent {
     void inject(SearchActivity activity);

@@ -1,7 +1,11 @@
 package com.example.linjw.dagger2demo.model;
 
+import android.util.Log;
+
+import com.example.linjw.dagger2demo.bean.FollowerInfo;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +14,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -18,12 +24,8 @@ import javax.inject.Inject;
  */
 
 public class UserInfoLoader {
+    public static final String TAG = "UserInfoLoader";
     public static final String QUERY_URL = "https://api.github.com/users/";
-
-    @Inject
-    public UserInfoLoader() {
-
-    }
 
     @SerializedName("name")
     private String mName;
@@ -33,6 +35,13 @@ public class UserInfoLoader {
 
     @SerializedName("login")
     private String mLogin;
+
+    private List<FollowerInfo> mFollowers;
+
+    @Inject
+    public UserInfoLoader() {
+
+    }
 
     public String getLogin() {
         return mLogin;
@@ -54,6 +63,9 @@ public class UserInfoLoader {
         this.mAvatarUrl = mAvatarUrl;
     }
 
+    public List<FollowerInfo> getFollowers() {
+        return mFollowers;
+    }
 
     public interface LoadFinishListener {
         void onLoadSuccess(UserInfoLoader loader);
@@ -68,7 +80,7 @@ public class UserInfoLoader {
             @Override
             public void run() {
                 try {
-                    String json = queryJsonStringFromServer(mLogin);
+                    String json = queryJsonStringFromServer(QUERY_URL + mLogin);
                     UserInfoLoader info = new Gson().fromJson(json, UserInfoLoader.class);
                     UserInfoLoader.this.mLogin = info.mLogin;
                     UserInfoLoader.this.mName = info.mName;
@@ -88,11 +100,48 @@ public class UserInfoLoader {
         }).start();
     }
 
-    private String queryJsonStringFromServer(String login) throws IOException {
+    public void loadFollowersInfo(final LoadFinishListener listener) {
+        if (mLogin==null) {
+            if (listener!=null){
+                listener.onLoadError(this);
+            }
+            return;
+        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String json = queryJsonStringFromServer(QUERY_URL + mLogin +"/followers");
+                    Log.d(TAG, json);
+
+                    mFollowers =  new Gson().fromJson(json, new TypeToken<List<FollowerInfo>>(){}.getType());
+                    String url = mFollowers.get(0).mAvatar;
+                    Log.d(TAG, url);
+
+
+                    if (listener != null) {
+                        listener.onLoadSuccess(UserInfoLoader.this);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                    if (listener != null) {
+                        listener.onLoadError(UserInfoLoader.this);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
+    private String queryJsonStringFromServer(String apiUrl) throws IOException {
         HttpURLConnection connection = null;
         StringBuilder response = null;
         try {
-            URL url = new URL(QUERY_URL + mLogin);
+            URL url = new URL(apiUrl);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             InputStream in = connection.getInputStream();
