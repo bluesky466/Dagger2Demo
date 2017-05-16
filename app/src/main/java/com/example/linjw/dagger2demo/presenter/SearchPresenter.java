@@ -31,6 +31,7 @@ public class SearchPresenter{
     }
 
     //@Inject 注解可以用来告诉Dagger用哪个构造方法去构造SearchPresenter
+    //context 参数由SearchPresenterModule提供
     public SearchPresenter(Context context) {
         Log.d(TAG, "SearchPresenter(Context context)");
         mContext = context;
