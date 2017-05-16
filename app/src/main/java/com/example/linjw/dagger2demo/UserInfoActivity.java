@@ -38,13 +38,6 @@ public class UserInfoActivity extends Activity implements UserInfoView{
         mAvatar = (ImageView) findViewById(R.id.avatar);
         mName = (TextView) findViewById(R.id.name);
 
-//        UserInfoComponent component = DaggerUserInfoComponent
-//                .builder()
-//                .userInfoPresenterModule(new UserInfoPresenterModule(this))
-//                .build();
-//        component.inject(this);
-//        component.inject(mPresenter);
-
         UserInfoComponent component = getAppComponent().plus(new UserInfoPresenterModule(this));
         component.inject(this);
         component.inject(mPresenter);

@@ -54,7 +54,6 @@ public class UserInfoPresenter {
     }
 
     public void gotoFollowersList(Context context) {
-        Toast.makeText(context, "gotoFollowersList", Toast.LENGTH_SHORT).show();
         context.startActivity(new Intent(mContext, FollowerActivity.class));
     }
 }

@@ -41,7 +41,7 @@ public class SearchActivity extends Activity implements SearchView {
         component.inject(mSearchPresenter);
     }
 
-    void onClick(View view){
+    public void onClick(View view){
         mSearchPresenter.search();
     }
 
