@@ -3,6 +3,7 @@ package com.example.linjw.dagger2demo;
 import android.app.Application;
 
 import com.example.linjw.dagger2demo.dagger2.AppComponent;
+import com.example.linjw.dagger2demo.dagger2.AppModule;
 import com.example.linjw.dagger2demo.dagger2.DaggerAppComponent;
 
 /**

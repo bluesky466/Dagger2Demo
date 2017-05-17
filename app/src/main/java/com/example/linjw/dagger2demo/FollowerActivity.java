@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.linjw.dagger2demo.bean.FollowerInfo;
 import com.example.linjw.dagger2demo.dagger2.AppComponent;
+//import com.example.linjw.dagger2demo.dagger2.DaggerFollowerComponent;
+import com.example.linjw.dagger2demo.dagger2.AppModule;
+//import com.example.linjw.dagger2demo.dagger2.DaggerFollowerComponent;
 import com.example.linjw.dagger2demo.dagger2.FollowerComponent;
 import com.example.linjw.dagger2demo.dagger2.FollowerPresenterModule;
 import com.example.linjw.dagger2demo.presenter.FollowerPresenter;
@@ -41,7 +44,25 @@ public class FollowerActivity extends Activity implements FollowerView {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycle_view);
 
+//        使用dependencies实现依赖继承
+//        FollowerComponent component = DaggerFollowerComponent.builder()
+//                .appComponent(getAppComponent())
+//                .followerPresenterModule(new FollowerPresenterModule(this))
+//                .build();
+
+//      用@Inject标注UserInfoLoader构造方法可以不用依赖AppModule或者AppComponent
+//        FollowerComponent component = DaggerFollowerComponent
+//                .builder()
+//                .followerPresenterModule(new FollowerPresenterModule(this))
+//                .build();
+
+//        共用AppModule
+//        FollowerComponent component = DaggerFollowerComponent.builder()
+//                .followerPresenterModule(new FollowerPresenterModule(this))
+//                .build();
+
         FollowerComponent component = getAppComponent().plus(new FollowerPresenterModule(this));
+
         component.inject(this);
         component.inject(mPresenter);
 

@@ -8,10 +8,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.linjw.dagger2demo.dagger2.AppComponent;
-//import com.example.linjw.dagger2demo.dagger2.DaggerAppComponent;
 //import com.example.linjw.dagger2demo.dagger2.DaggerUserInfoComponent;
-//import com.example.linjw.dagger2demo.dagger2.UserInfoComponent;
-//import com.example.linjw.dagger2demo.dagger2.UserInfoPresenterModule;
+import com.example.linjw.dagger2demo.dagger2.AppModule;
+//import com.example.linjw.dagger2demo.dagger2.DaggerUserInfoComponent;
 import com.example.linjw.dagger2demo.dagger2.UserInfoComponent;
 import com.example.linjw.dagger2demo.dagger2.UserInfoPresenterModule;
 import com.example.linjw.dagger2demo.presenter.UserInfoPresenter;
@@ -38,7 +37,24 @@ public class UserInfoActivity extends Activity implements UserInfoView{
         mAvatar = (ImageView) findViewById(R.id.avatar);
         mName = (TextView) findViewById(R.id.name);
 
+//        使用dependencies实现依赖继承
+//        UserInfoComponent component = DaggerUserInfoComponent.builder()
+//                .appComponent(getAppComponent())
+//                .userInfoPresenterModule(new UserInfoPresenterModule(this))
+//                .build();
+
+//      用@Inject标注UserInfoLoader构造方法可以不用依赖AppModule或者AppComponent
+//        UserInfoComponent component = DaggerUserInfoComponent.builder()
+//                .userInfoPresenterModule(new UserInfoPresenterModule(this))
+//                .build();
+
+//        共用AppModule
+//        UserInfoComponent component = DaggerUserInfoComponent.builder()
+//                .userInfoPresenterModule(new UserInfoPresenterModule(this))
+//                .build();
+
         UserInfoComponent component = getAppComponent().plus(new UserInfoPresenterModule(this));
+
         component.inject(this);
         component.inject(mPresenter);
 

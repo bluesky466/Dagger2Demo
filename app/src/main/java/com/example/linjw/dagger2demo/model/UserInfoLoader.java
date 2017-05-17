@@ -14,10 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Created by linjw on 17-5-11.
@@ -38,10 +35,13 @@ public class UserInfoLoader {
 
     private List<FollowerInfo> mFollowers;
 
-    @Inject
+//    使用Inject注解的话AAppComponent.provideUserInfoLoader可以不声明
+//    甚至可以没有AppModule
+//    @Inject
     public UserInfoLoader() {
 
     }
+
 
     public String getLogin() {
         return mLogin;

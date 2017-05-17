@@ -26,7 +26,8 @@ public class FollowerPresenter {
     }
 
     public void loadFollowers() {
-        Log.d(TAG, "login : " + mUserInfoLoader.getLogin());
+        Log.d(TAG, "mUserInfoLoader : " + mUserInfoLoader);
+
         mUserInfoLoader.loadFollowersInfo(new UserInfoLoader.LoadFinishListener() {
             @Override
             public void onLoadSuccess(UserInfoLoader loader) {

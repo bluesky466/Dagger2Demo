@@ -35,6 +35,8 @@ public class UserInfoPresenter {
 
 
     public void loadUserInfo(final String login) {
+        Log.d(TAG, "mUserInfoLoader : " + mUserInfoLoader);
+
         mUserInfoLoader.loadUserInfo(login, new UserInfoLoader.LoadFinishListener() {
             @Override
             public void onLoadSuccess(UserInfoLoader loader) {

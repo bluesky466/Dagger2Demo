@@ -12,6 +12,5 @@ import dagger.Component;
 @Component(modules = {SearchPresenterModule.class})
 public interface SearchComponent {
     void inject(SearchActivity activity);
-
     void inject(SearchPresenter presenter);
 }
